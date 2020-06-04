@@ -30,3 +30,21 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # Employeemanagesystem-Angular5-
 Use angular5 framework to build a employee management system, need ng serve to start the project.
 >>>>>>> 6dac59e1b1fdf93bc2a9c5ecb867b328a1410c16
+
+Git Tips:
+1.pull and fetch solutions:
+As it is stated in the Error message you have to "fetch first." This worked for me. Use the command:
+
+git fetch origin master
+Then follow these steps to merge:
+
+git pull origin master
+git add .
+git commit -m 'your commit message'
+git push origin master
+
+2. Solve unrelevant solutions:
+git pull origin master --allow-unrelated-histories
+
+https://stackoverflow.com/questions/28429819/rejected-master-master-fetch-first
+https://www.educative.io/edpresso/the-fatal-refusing-to-merge-unrelated-histories-git-error
