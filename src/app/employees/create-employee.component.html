@@ -1,0 +1,25 @@
+<form #employeeForm="ngForm">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Employee</h3>
+    </div>
+    <div cLass="panel-body">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id ="fullName" [(ngModel)]="fullName" name="fullname" class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id ="email" [(ngModel)]="email" name="email" class="form-control">
+      </div>
+  
+  
+    </div>
+    <div class="panel-footer">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </div>  
+</form>
+
+{{employeeForm.value | json}}
