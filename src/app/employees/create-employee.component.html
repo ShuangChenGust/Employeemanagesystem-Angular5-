@@ -1,24 +1,144 @@
-<form #employeeForm="ngForm">
+<form #employeeForm="ngForm" ngNativeValidate (ngSubmit)="saveEmployee(employeeForm)">
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title">Create Employee</h3>
     </div>
     <div cLass="panel-body">
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" id ="fullName" [(ngModel)]="fullName" name="fullname" class="form-control">
+
+      <div class="form-group" [class.has-error]="fullNameControl.invalid && fullNameControl.touched" 
+      [class.has-success]="fullNameControl.valid">
+        <label for="fullName" class= "control-label">Full Name</label>
+        <input required type="text" id ="fullName" [(ngModel)]="fullName" name="fullName" class="form-control" #fullNameControl="ngModel">
+      
+        <span class="help-block" *ngIf="fullNameControl.invalid && fullNameControl.touched">
+          Full name is Required 
+        </span>
       </div>
   
+      <!-- <div>touched: {{fullNameControl.touched}}</div>
+      <div>untouched: {{fullNameControl.untouched}}</div> -->
+      
+      <table border=1 style="border-collapse:collapse; font-family:Arial; table-layout: fixed">
+        <tr style="background-color:dodgerblue; font-weight: bold">
+          <td colspan="3" style="padding:3px; white-space:nowrap; width:100%">
+            <h4>Full Name Field</h4>
+          </td>
+        </tr>
+        <tr style="background-color:dodgerblue; font-weight: bold">
+          <td style="padding:10px; white-space:nowrap; width:33%">
+            <div>touched : {{ fullNameControl.touched }}</div>
+            <div>untouched : {{ fullNameControl.untouched }}</div>
+          </td> 
+          <td style="padding:10px; white-space:nowrap; width:33%">
+            <div>pristine : {{ fullNameControl.pristine }}</div>
+            <div>dirty : {{ fullNameControl.dirty }}</div>
+          </td>
+          <td style="padding:10px; white-space:nowrap; width:33%">
+            <div>valid : {{ fullNameControl.valid }}</div>
+            <div>invalid : {{ fullNameControl.invalid }}</div>
+          </td>
+        </tr>
+      </table>
+
+
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" id ="email" [(ngModel)]="email" name="email" class="form-control">
+        <input required type="text" id ="email" [(ngModel)]="email" name="email" class="form-control">
       </div>
-  
-  
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id ="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <div class="form-control">
+          <label class="radio-inline">
+            <input type="radio" value="male" name="gender" [(ngModel)]="gender" checked>
+            male
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="female" name="gender" [(ngModel)]="gender">
+            female
+          </label>
+          
+        </div>
+        
+      </div>
+
+      <div class="form-group">
+        <label for="contactPreference">Contact Preference</label>
+        <div class="form-control">
+
+          <label class="radio-inline">
+            <input type="radio" value="email" name="email" [(ngModel)]="contactPreference">
+            Email
+          </label>
+
+          <label class="radio-inline">
+            <input type="radio" value="phone" name="email" [(ngModel)]="contactPreference">
+            phone
+          </label>
+          
+        </div>
+      </div>
+
+      <div class="form-group">
+        
+        <div class="checkbox-inline">
+          <label class="checkbox" >
+            <input type="checkbox" name="isActive" [(ngModel)]="isActive" checked>
+            is Active
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label for="department" >
+            Department
+          </label>
+            <select name="department" id="department" [(ngModel)]="department" class="form-control">
+              <!-- <option value="1">Help Desk</option>
+              <option value="2">HR</option>
+              <option value="3" selected>IT</option>
+              <option value="4">Accountant</option>
+              <option value="5">Marketing</option> -->
+              <option *ngFor="let dept of departments" [value]="dept.id">
+                {{dept.name}}
+              </option>
+            </select>
+      </div>
+      
+      <div class="row">
+        <div class="form-group col-md-5">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input placement="right" type="text" bsDatepicker [bsConfig]="datepickerConfig" id ="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="photoPath">Photo Path</label>
+        <input type="text" id ="photoPath" [(ngModel)]="photoPath" name="photoPath" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <button (click)="togglePhotoPreview()" class="btn btn-primary">
+          {{previewPhoto? "Hide ":"Show "}}Preview
+        </button>
+      </div>
+
+      <div class="form-group">
+        <img [src]="photoPath" height="200" weight="200" *ngIf="previewPhoto">
+      </div>
+
     </div>
     <div class="panel-footer">
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" [disabled]="employeeForm.invalid" class="btn btn-primary">Save</button>
     </div>
+
+    
   </div>  
 </form>
 
